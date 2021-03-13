@@ -1,9 +1,9 @@
+name: Test Coveralls
+
 on:
   push:
     branches:
       - master
-
-name: Test Coveralls
 
 jobs:
   build:
