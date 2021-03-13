@@ -19,10 +19,9 @@ jobs:
 
     - name: make test-coverage
       run: |
-        make test-coverage
+        npm run coverage
 
     - name: Coveralls
       uses: coverallsapp/github-action@master
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
-        parallel-finished: true

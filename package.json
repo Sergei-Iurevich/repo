@@ -4,11 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest --coverage && coveralls < coverage/lcov.infojest --coverage && coveralls < coverage/lcov.info",
+    "test": "jest",
     "dev": "webpack serve",
     "build": "webpack",
     "lint": "prettier --check . && eslint .",
-    "lint:fix": "prettier --write . && eslint . --fix"
+    "lint:fix": "prettier --write . && eslint . --fix",
+    "coverage":"jest --coverage && coveralls < coverage/lcov.infojest --coverage && coveralls < coverage/lcov.info"
   },
   "repository": {
     "type": "git",
