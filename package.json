@@ -9,7 +9,7 @@
     "build": "webpack",
     "lint": "prettier --check . && eslint .",
     "lint:fix": "prettier --write . && eslint . --fix",
-    "coverage": "jest --coverage && coveralls < coverage/lcov.infojest --coverage && coveralls < coverage/lcov.info"
+    "coverage": "jest --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage"
   },
   "repository": {
     "type": "git",
