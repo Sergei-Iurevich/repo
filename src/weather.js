@@ -1,9 +1,10 @@
-import { getCity } from "./getCity.js";
-import { getWeather } from "./getWeather.js";
-import { readList } from "./readList.js";
-import { saveList } from "./saveList.js";
+import { getCity } from "./getCity";
+import { getWeather } from "./getWeather";
+import { readList } from "./readList";
+import { saveList } from "./saveList";
 
-export async function weather(el) {
+export async function weather(elem) {
+  const el = elem;
   const mapKey = "AIzaSyDANLeEnr2Wf05hG0wxHA0Ucqz5CeZF_Cw";
   const appID = "6483f07f86904206d5977c6c6ae4e4e1";
 
@@ -21,7 +22,8 @@ export async function weather(el) {
                         <div class="map"></div>
                         `;
 
-  function drawWeather(element, data) {
+  function drawWeather(elem1, data) {
+    const element = elem1;
     element.innerHTML = `     
         <span>${data.name}</span>
         <span>${data.main.temp}</span>
@@ -30,23 +32,22 @@ export async function weather(el) {
   }
 
   function drawMap(element, city) {
+    const elem2 = element;
     const cityName = city.split(" ").join("+");
     const url =
       `https://maps.googleapis.com/maps/api/staticmap?center=` +
       `${cityName}&size=500x500&key=${mapKey}`;
-    element.innerHTML = `<img src=${url}>`;
+    elem2.innerHTML = `<img src=${url}>`;
   }
 
-  function drawList(element, items) {
+  function drawList(elem3, items) {
+    const element = elem3;
     const list = items
-      .map(function (item) {
-        return `<li><a href="#">${item}</a></li>`;
-      })
+      .map((item) => `<li><a href="#">${item}</a></li>`)
       .join("");
     element.innerHTML = `<ol>${list}</ol>`;
   }
 
-  // Получаем указатели на нужные элементы
   const divForWeather = el.querySelector(".divForWeather");
   const map = el.querySelector(".map");
   const form = el.querySelector("form");
@@ -56,10 +57,8 @@ export async function weather(el) {
   drawWeather(divForWeather, data);
   drawMap(map, await getCity());
 
-  // Читаем список при старте
   const items = await readList();
 
-  // и отрисовываем список
   drawList(listEl, items);
 
   listEl.addEventListener("click", async (ev) => {
@@ -71,10 +70,8 @@ export async function weather(el) {
   });
 
   form.addEventListener("submit", async (ev) => {
-    // чтобы не перезагружать страницу
     ev.preventDefault();
 
-    // читаем значение из формы
     const formElement = ev.target;
     const input = formElement.querySelector("input");
     const { value } = input;
@@ -87,17 +84,14 @@ export async function weather(el) {
     drawWeather(divForWeather, data1);
     drawMap(map, city);
 
-    // добавляем элемент в список
     items.push(value);
 
     if (items.length > 10) {
       items.splice(0, 1);
     }
 
-    // обновляем список
     drawList(listEl, items);
 
-    // сохраняем список
     saveList(items);
   });
 }
