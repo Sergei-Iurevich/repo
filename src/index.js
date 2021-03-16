@@ -1,4 +1,4 @@
-import { weather } from "./weather.js";
+import { weather } from "./weather";
 
 const div = document.createElement("div");
 div.id = "app";
